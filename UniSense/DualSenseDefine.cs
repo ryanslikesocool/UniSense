@@ -1,8 +1,10 @@
 ﻿using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.Scripting;
 
 namespace UniSense
 {
+    [Preserve]
     public struct DualSenseGamepadState
     {
         public Color? LightBarColor;
@@ -16,6 +18,7 @@ namespace UniSense
         public PlayerLedState? PlayerLed;
     }
 
+    [Preserve]
     public struct DualSenseMotorSpeed
     {
         public float LowFrequencyMotorSpeed;
@@ -27,14 +30,16 @@ namespace UniSense
             HighFrequenceyMotorSpeed = highFrequenceyMotorSpeed;
         }
     }
-    
+
+    [Preserve]
     public enum DualSenseMicLedState
     {
         Off,
         On,
         Pulsating,
     }
-    
+
+    [Preserve]
     public enum DualSenseTriggerEffectType : byte
     {
         NoResistance = 0,
@@ -43,8 +48,8 @@ namespace UniSense
         EffectEx,
         Calibrate,
     }
-    
-    [StructLayout(LayoutKind.Explicit)]
+
+    [Preserve, StructLayout(LayoutKind.Explicit)]
     public struct DualSenseTriggerState
     {
         [FieldOffset(0)] public DualSenseTriggerEffectType EffectType;
@@ -54,12 +59,14 @@ namespace UniSense
         [FieldOffset(1)] public DualSenseEffectExProperties EffectEx;
     }
 
+    [Preserve]
     public struct DualSenseContinuousResistanceProperties
     {
         public byte StartPosition;
         public byte Force;
     }
 
+    [Preserve]
     public struct DualSenseSectionResistanceProperties
     {
         public byte StartPosition;
@@ -67,6 +74,7 @@ namespace UniSense
         public byte Force;
     }
 
+    [Preserve]
     public struct DualSenseEffectExProperties
     {
         public byte StartPosition;
@@ -77,6 +85,7 @@ namespace UniSense
         public byte Frequency;
     }
 
+    [Preserve]
     public enum PlayerLedBrightness
     {
         High,
@@ -84,6 +93,7 @@ namespace UniSense
         Low,
     }
 
+    [Preserve]
     public struct PlayerLedState
     {
         private const byte LED1 = 0x10;
@@ -94,7 +104,7 @@ namespace UniSense
         private const byte LED_MASK = LED1 | LED2 | LED3 | LED4 | LED5;
 
         private const byte FADE = 0x40;
-        
+
         public byte Value { get; private set; }
 
         public PlayerLedState(bool led1, bool led2, bool led3, bool led4, bool led5, bool fade = true)
@@ -110,7 +120,7 @@ namespace UniSense
 
         public PlayerLedState(byte led, bool fade = false)
         {
-            Value = (byte) (led & LED_MASK);
+            Value = (byte)(led & LED_MASK);
             if (fade) Value |= FADE;
         }
     }

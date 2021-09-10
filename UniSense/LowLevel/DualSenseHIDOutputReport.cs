@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.Scripting;
 using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.InputSystem.Utilities;
 
 namespace UniSense.LowLevel
 {
-    [StructLayout(LayoutKind.Explicit, Size = kSize)]
+    [Preserve, StructLayout(LayoutKind.Explicit, Size = kSize)]
     internal unsafe struct DualSenseHIDOutputReport : IInputDeviceCommandInfo
     {
         public static FourCC Type => new FourCC('H', 'I', 'D', 'O');
@@ -43,7 +44,7 @@ namespace UniSense.LowLevel
         internal enum LedFlags : byte
         {
             PlayerLedBrightness = 0x01,
-            LightBarFade        = 0x02,
+            LightBarFade = 0x02,
         }
 
         internal enum InternalPlayerLedBrightness : byte
@@ -63,15 +64,15 @@ namespace UniSense.LowLevel
         [FieldOffset(InputDeviceCommand.BaseCommandSize + 4)] public byte highFrequencyMotorSpeed;
 
         [FieldOffset(InputDeviceCommand.BaseCommandSize + 9)] public InternalMicLedState micLedState;
-        
+
         [FieldOffset(InputDeviceCommand.BaseCommandSize + 11)] public byte rightTriggerMode;
         [FieldOffset(InputDeviceCommand.BaseCommandSize + 12)] public fixed byte rightTriggerParams[kTriggerParamSize];
-        
+
         [FieldOffset(InputDeviceCommand.BaseCommandSize + 22)] public byte leftTriggerMode;
         [FieldOffset(InputDeviceCommand.BaseCommandSize + 23)] public fixed byte leftTriggerParams[kTriggerParamSize];
-        
+
         [FieldOffset(InputDeviceCommand.BaseCommandSize + 37)] public byte powerReduction;
-        
+
         [FieldOffset(InputDeviceCommand.BaseCommandSize + 39)] public LedFlags ledFlags;
         [FieldOffset(InputDeviceCommand.BaseCommandSize + 42)] public byte ledPulseOption;
 
@@ -164,8 +165,8 @@ namespace UniSense.LowLevel
                 case DualSenseTriggerEffectType.EffectEx:
                     triggerMode = 0x26;
                     ClearTriggerParams(triggerParams);
-                    triggerParams[0] = (byte) (0xff - state.EffectEx.StartPosition);
-                    triggerParams[1] = (byte) (state.EffectEx.KeepEffect ? 0x02 : 0x00);
+                    triggerParams[0] = (byte)(0xff - state.EffectEx.StartPosition);
+                    triggerParams[1] = (byte)(state.EffectEx.KeepEffect ? 0x02 : 0x00);
                     triggerParams[3] = state.EffectEx.BeginForce;
                     triggerParams[4] = state.EffectEx.MiddleForce;
                     triggerParams[5] = state.EffectEx.EndForce;
@@ -193,9 +194,9 @@ namespace UniSense.LowLevel
             flags2 |= Flags2.SetLightBarColor;
             ledFlags |= LedFlags.LightBarFade;
             ledPulseOption = 0x02;
-            lightBarRed = (byte) Mathf.Clamp(color.r * 255, 0, 255);
-            lightBarGreen = (byte) Mathf.Clamp(color.g * 255, 0, 255);
-            lightBarBlue = (byte) Mathf.Clamp(color.b * 255, 0, 255);
+            lightBarRed = (byte)Mathf.Clamp(color.r * 255, 0, 255);
+            lightBarGreen = (byte)Mathf.Clamp(color.g * 255, 0, 255);
+            lightBarBlue = (byte)Mathf.Clamp(color.b * 255, 0, 255);
         }
 
         public void SetPlayerLedBrightness(PlayerLedBrightness brightness)

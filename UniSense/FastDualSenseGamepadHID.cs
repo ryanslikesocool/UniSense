@@ -12,6 +12,7 @@
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.InputSystem.Utilities;
+using UnityEngine.Scripting;
 
 // Suppress warnings from local variables for control references
 // that we don't end up using.
@@ -19,6 +20,7 @@ using UnityEngine.InputSystem.Utilities;
 
 namespace UniSense
 {
+    [Preserve]
     public partial class FastDualSenseGamepadHID : UniSense.DualSenseGamepadHID
     {
         public const string metadata = "StickDeadzone;AxisDeadzone;Stick;Vector2;Button;Axis;Dpad;Vector3;DpadAxis;DiscreteButton;DualSenseGamepadHID;DualShockGamepad;Gamepad";
@@ -200,14 +202,14 @@ namespace UniSense
             builder.WithControlUsage(10, new InternedString("Menu"), ctrlDualSenseGamepadHIDstart);
 
             // Aliases.
-            builder.WithControlAlias(0,  new InternedString("x"));
-            builder.WithControlAlias(1,  new InternedString("square"));
-            builder.WithControlAlias(2,  new InternedString("a"));
-            builder.WithControlAlias(3,  new InternedString("cross"));
-            builder.WithControlAlias(4,  new InternedString("b"));
-            builder.WithControlAlias(5,  new InternedString("circle"));
-            builder.WithControlAlias(6,  new InternedString("y"));
-            builder.WithControlAlias(7,  new InternedString("triangle"));
+            builder.WithControlAlias(0, new InternedString("x"));
+            builder.WithControlAlias(1, new InternedString("square"));
+            builder.WithControlAlias(2, new InternedString("a"));
+            builder.WithControlAlias(3, new InternedString("cross"));
+            builder.WithControlAlias(4, new InternedString("b"));
+            builder.WithControlAlias(5, new InternedString("circle"));
+            builder.WithControlAlias(6, new InternedString("y"));
+            builder.WithControlAlias(7, new InternedString("triangle"));
 
             // Control getters/arrays.
             this.leftTriggerButton = ctrlDualSenseGamepadHIDleftTriggerButton;

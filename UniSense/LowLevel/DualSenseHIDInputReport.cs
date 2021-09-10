@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices;
+using UnityEngine.Scripting;
 using UnityEngine.InputSystem.Layouts;
 using UnityEngine.InputSystem.Controls;
 using UnityEngine.InputSystem.LowLevel;
@@ -6,7 +7,7 @@ using UnityEngine.InputSystem.Utilities;
 
 namespace UniSense.LowLevel
 {
-    [StructLayout(LayoutKind.Sequential, Size = 64)]
+    [Preserve, StructLayout(LayoutKind.Sequential, Size = 64)]
     internal struct DualSenseHIDInputReport : IInputStateTypeInfo
     {
         public FourCC format => new FourCC('H', 'I', 'D');
